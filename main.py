@@ -1,8 +1,11 @@
 def main():
+  frankenstein_path = "books/frankenstein.txt"
+  print(get_file_content(frankenstein_path))
 
-  with open("books/frankenstein.txt") as file:
-    file_content = file.read()
-    print(file_content)
+def get_file_content(path):
+  with open(path) as file:
+    return file.read()
+
 
 
 
