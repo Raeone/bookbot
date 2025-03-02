@@ -1,25 +1,53 @@
-from stats import count_words
-from stats import count_chars 
-from stats import sorted_chars
+from stats import (
+  count_words,
+  chars_dict,
+  chars_dict_to_sorted_list
+)
 
 def main():
-  frankenstein_path = "books/frankenstein.txt"
-  frankenstein_content = get_book_text(frankenstein_path)
-  chars_dict = count_chars(frankenstein_content)
-  sorted_characters = sorted_chars(chars_dict)
+  book_path = "books/frankenstein.txt"
+  book_content = get_book_text(book_path) # string
+  num_of_words = count_words(book_content) # number
+  num_of_chars = chars_dict(book_content) # dict
+  sorted_num_of_chars = chars_dict_to_sorted_list(num_of_chars) # list of dicts
 
-  # print(frankenstein_content)
-  # print(f"{count_words(frankenstein_content)} words found in the document")
-  # print(count_chars(frankenstein_content))
-  # print(sorted_characters)
+  # print(book_content)
+  # print(f"{count_words(book_content)} words found in the document")
+  # print(num_of_chars)
+  # print(num_of_words)
+  # print(sorted_num_of_chars)
+  print_report(book_path, num_of_words, sorted_num_of_chars)
 
-  print("============ BOOKBOT ============")
-  print(f"Analyzing book found at {frankenstein_path}...")
-  print("----------- Word Count ----------")
-  print(f"Found {count_words(frankenstein_content)} total words")
-  print("--------- Character Count -------")
+
+def get_book_text(file_to_path):
+  """Load content of a file.
+
+  Args:
+      file_to_path (string): url path to file to be load
+
+  Returns:
+      string: content of the file
+  """
+  with open(file_to_path) as f:
+    return f.read()
+
+
+def print_report(book_path, words_count, characters_list):
+  """Print report and statistics from a book
+
+  Args:
+      book_path (string): url path  
+      words (number): count of words in book
+      characters_list (dictionary): dictionary of characters and counts
+  """
   
-  for char in sorted_characters:
+  print("\n============ BOOKBOT ============\n")
+  print(f"Analyzing book found at {book_path}...")
+  print("\n----------- Word Count ----------\n")
+  print(f"Found {words_count} total words")
+  print("\n--------- Character Count -------\n")
+  
+  for char in characters_list:
     for key in char:
       if key.isalpha():
         print(f"{key}: {char[key]}")
@@ -27,12 +55,4 @@ def main():
   print("============= END ===============")
 
 
-
-  
-def get_book_text(file_to_path):
-  with open(file_to_path) as f:
-    return f.read()
-
-
-  
 main()

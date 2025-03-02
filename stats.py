@@ -1,29 +1,61 @@
+# 
 def count_words(text):
-  text_array = text.split()
-  return len(text_array)
+  """Counts words in text string
 
-def count_chars(text):
-  char_count = {}
+  Args:
+      text (string): any text, will be split into array
+
+  Returns:
+      number: returns lenght of array (number of words)
+  """
+  words = text.split()
+  return len(words)
+
+def chars_dict(text):
+  """Returns dictionary with symbols from text and number of their occurence
+
+  Args:
+      text (string): convert string to lower case (for no duplicit characters), each character will populate dictionary { "char": count }
+
+  Returns:
+      dictinary: ie. { "a": 5, ",": 34 }
+  """
+  chars_dict = {}
   text_lowered = text.lower()
   
   for char in text_lowered:
-    if char in char_count:
-      char_count[char] += 1
+    if char in chars_dict:
+      chars_dict[char] += 1
     else:
-      char_count[char] = 1
+      chars_dict[char] = 1
   
-  return char_count
+  return chars_dict
 
-def sort_on(dict):
-  for key in dict:
-    return(dict[key])
+def sort_by_value(single_value_dict):
+  """Used for sorting of list containg single value dictionary. 
+
+  Args:
+      single_value_dict (dictionary): dictionary with single value {key: value}
+
+  Returns:
+      ?: value from dingle value dictionary 
+  """
+  return list(single_value_dict.values())[0]
   
-def sorted_chars(dictionary_of_chars):
-  chars_arr = []
+def chars_dict_to_sorted_list(chars_dict):
+  """Convert dictionary to list of dictionaries and sort by value
 
-  for key in dictionary_of_chars:
-    chars_arr.append({key: dictionary_of_chars[key] })
+  Args:
+      chars_dict (dictionary): dictionary of characters
 
-  chars_arr.sort(key=sort_on, reverse=True)
+  Returns:
+      array: sorted array of dictionaries, sorted by dict. values
+  """
+  sorted_list = []
+
+  for char in chars_dict:
+    sorted_list.append({ char: chars_dict[char] })
+
+  sorted_list.sort(key=sort_by_value, reverse=True)
   
-  return chars_arr
+  return sorted_list
