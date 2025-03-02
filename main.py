@@ -1,3 +1,4 @@
+import sys
 from stats import (
   count_words,
   chars_dict,
@@ -5,17 +6,16 @@ from stats import (
 )
 
 def main():
-  book_path = "books/frankenstein.txt"
+  if len(sys.argv) < 2:
+    print("Usage: python3 main.py <path_to_book>")
+    sys.exit(1)
+
+  book_path = sys.argv[1]
   book_content = get_book_text(book_path) # string
   num_of_words = count_words(book_content) # number
   num_of_chars = chars_dict(book_content) # dict
   sorted_num_of_chars = chars_dict_to_sorted_list(num_of_chars) # list of dicts
 
-  # print(book_content)
-  # print(f"{count_words(book_content)} words found in the document")
-  # print(num_of_chars)
-  # print(num_of_words)
-  # print(sorted_num_of_chars)
   print_report(book_path, num_of_words, sorted_num_of_chars)
 
 
